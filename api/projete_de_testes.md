@@ -62,3 +62,7 @@ Se quiser, **Guri Bagual**, também posso te ajudar com mais duas coisas que ger
 2️⃣ **Matriz de rastreabilidade (requisitos ↔ testes)**
 
 Isso normalmente deixa o trabalho **nível nota 10**.
+
+
+Projeto grande não se termina com motivação, se termina com constância — um commit de cada vez.
+
