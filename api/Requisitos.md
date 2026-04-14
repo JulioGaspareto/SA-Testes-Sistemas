@@ -7,11 +7,11 @@
 | RF-03 | Logout              | O sistema deve permitir que o usuário encerre sua sessão.                                  |
 | RF-04 | Visualizar perfil   | O usuário deve poder visualizar suas informações cadastradas.                              |
 | RF-05 | Editar perfil       | O usuário deve poder editar suas informações pessoais.                                     |
-| RF-06 | Criar tarefa        | O usuário deve poder cadastrar tarefas ou lembretes.                                       |
-| RF-07 | Editar tarefa       | O usuário deve poder editar tarefas cadastradas.                                           |
-| RF-08 | Excluir tarefa      | O usuário deve poder excluir tarefas cadastradas.                                          |
-| RF-09 | Visualizar tarefas  | O sistema deve exibir a lista de tarefas cadastradas pelo usuário.                         |
-| RF-10 | Pesquisa de tarefas | O sistema deve permitir pesquisar tarefas ou rotinas cadastradas.                          |
+| RF-06 | Pedido        | O usuário deve poder cadastrar tarefas ou lembretes.                                       |
+| RF-07 | Editar Pedido     | O usuário deve poder editar tarefas cadastradas.                                           |
+| RF-08 | Cancelar Pedido      | O usuário deve poder excluir tarefas cadastradas.                                          |
+| RF-09 | Visualizar Pedido  | O sistema deve exibir a lista de tarefas cadastradas pelo usuário.                         |
+| RF-10 | Pesquisa Pedido | O sistema deve permitir pesquisar tarefas ou rotinas cadastradas.                          |
 
 
 

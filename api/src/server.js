@@ -1,7 +1,7 @@
 import express from 'express'
 import route from './routes/fruitRoutes.js'
 
-const PORT = 3000
+const PORT = 5432
 const app = express()
 app.use(express.json())
 

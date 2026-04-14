@@ -1,5 +1,5 @@
 import express from 'express'
-import { fruitService } from '../services/fruitService.js'
+import { fruitService } from '../services/clientesService.js'
 
 const route = express.Router()
 
