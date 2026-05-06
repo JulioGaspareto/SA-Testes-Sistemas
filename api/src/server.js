@@ -1,16 +1,16 @@
 import express from 'express'
-import route from './routes/fruitRoutes.js'
+import usuarioRoutes from './routes/usuarioRoutes.js'
 
-const PORT = 5432
+const PORT = 3000
 const app = express()
+
 app.use(express.json())
 
 app.get("/", (req, res) => {
-    res.send("Bem vindo!")
+    res.send("API Good Coffee ☕")
 })
 
-// rotas
-app.use('/fruits', route)
+app.use('/usuarios', usuarioRoutes)
 
 app.listen(PORT, () => {
     console.log(`API rodando em: http://localhost:${PORT}`)

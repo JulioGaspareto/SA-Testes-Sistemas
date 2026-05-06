@@ -9,14 +9,13 @@
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "mysql2": "^3.17.5",
     "pg": "^8.20.0",
     "typescript": "^5.9.3",
     "undici-types": "^7.18.2"
   },
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "dev": "node app.js --watch"
+    "dev": "node --watch src/server.js"
   },
   "keywords": [],
   "author": "",

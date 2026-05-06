@@ -43,26 +43,5 @@ A tabela abaixo relaciona os casos de teste aos requisitos funcionais do sistema
 * Devem ser testados **cenários de sucesso e de erro**.
 * Sempre que possível, registrar **prints ou evidências dos testes realizados**.
 
----
 
-💡 **Dica de ouro pra ganhar ponto com professor:**
-Se tu adicionar **casos de erro**, tipo:
-
-* login com campo vazio
-* cadastro com email já existente
-* criar tarefa sem título
-
-o trabalho fica **bem mais completo**.
-
----
-
-Se quiser, **Guri Bagual**, também posso te ajudar com mais duas coisas que geralmente aparecem nessa entrega:
-
-1️⃣ **Casos de teste MUITO mais completos (uns 15)**
-2️⃣ **Matriz de rastreabilidade (requisitos ↔ testes)**
-
-Isso normalmente deixa o trabalho **nível nota 10**.
-
-
-Projeto grande não se termina com motivação, se termina com constância — um commit de cada vez.
 
