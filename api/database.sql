@@ -1,14 +1,28 @@
-CREATE DATABASE IF NOT EXISTS kennel_shop;
-USE kennel_shop;
+CREATE TABLE pedidos(
+id_pedido SERIAL PRIMARY KEY NOT NULL,
+usuario_id INTEGER NOT NULL,
+data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-CREATE TABLE IF NOT EXISTS animals (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    species VARCHAR(255) NOT NULL,
-    age INT NOT NULL,
-    price DECIMAL(10, 2) NOT NULL
+CONSTRAINT fk_usuario
+ FOREIGN KEY (usuario_id)
+ REFERENCES usuarios(id_usuario)
+ ON DELETE CASCADE
 );
 
-INSERT INTO animals (name, species, age, price) VALUES
-('Buddy', 'Golden Retriever', 2, 500.00),
-('Mittens', 'Siamese Cat', 1, 200.00);
+CREATE TABLE pedidos_itens (
+id_pedido_iten SERIAL PRIMARY KEY NOT NULL,
+pedido_id INTEGER NOT NULL,
+produto_id INTEGER NOT NULL,
+quantidade INTEGER DEFAULT 1,
+
+CONSTRAINT fk_pedido
+FOREIGN KEY (pedido_id)
+REFERENCES pedidos(id_pedido)
+ON DELETE CASCADE,
+
+CONSTRAINT fk_produtos
+FOREIGN KEY (produto_id)
+REFERENCES produtos(id_produto)
+ON DELETE CASCADE
+
+);

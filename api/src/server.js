@@ -10,8 +10,9 @@ app.get("/", (req, res) => {
     res.send("API Good Coffee ☕")
 })
 
-app.use('/usuarios', usuarioRoutes)
+app.use('/usuarios', usuarioRoutes)  
 
 app.listen(PORT, () => {
-    console.log(`API rodando em: http://localhost:${PORT}`)
+    console.log(`API rodando em: http://localhost:${PORT} Good Coffee☕")
+})`)
 })
