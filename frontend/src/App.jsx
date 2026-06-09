@@ -1,17 +1,14 @@
-import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AuthPage from "./pages/AuthPage";
+import DashboardPage from "./pages/DashboardPage";
 
-function App() {
-  const [refresh, setRefresh] = useState(0);
-
-  const handleRefresh = () => {
-    setRefresh((prev) => prev + 1);
-  };
-
+export default function App() {
   return (
-    <div className="container mx-auto p-4">
-    
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AuthPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
