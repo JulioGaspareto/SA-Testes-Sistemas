@@ -1,7 +1,9 @@
 import express from 'express';
+import dotenv from "dotenv";
 import usuarioRoutes from './routes/usuarioRoutes.js';
 import produtoRoutes from './routes/produtoRoutes.js';
 import pedidoRoutes from "./routes/pedidoRoutes.js";
+dotenv.config();
 
 const PORT = 3000;
 const app = express();
@@ -14,7 +16,6 @@ app.get("/", (req, res) => {
 
 app.use('/usuarios', usuarioRoutes);
 app.use('/produtos', produtoRoutes);
-
 app.use("/pedidos", pedidoRoutes);
 
 app.listen(PORT, () => {

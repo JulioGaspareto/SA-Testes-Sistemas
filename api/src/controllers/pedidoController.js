@@ -1,7 +1,7 @@
 import * as pedidoService from "../services/pedidoService.js";
 
 export const criar = async (req, res) => {
-  const { usuario_id } = req.body;
+  const usuario_id = req.usuario.id_usuario;
 
   try {
     const pedido = await pedidoService.criarPedido(usuario_id);
@@ -10,7 +10,6 @@ export const criar = async (req, res) => {
     res.status(500).json({ erro: err.message });
   }
 };
-
 
 export const adicionarItem = async (req, res) => {
   const { pedido_id, produto_id, quantidade } = req.body;
