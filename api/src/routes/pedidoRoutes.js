@@ -1,6 +1,6 @@
 import express from "express";
 import * as pedidoController from "../controllers/pedidoController.js";
-import { auth } from "../middlewares/auth.js";
+import  {auth}  from "../middlewares/auth.js";
 
 const router = express.Router();
 

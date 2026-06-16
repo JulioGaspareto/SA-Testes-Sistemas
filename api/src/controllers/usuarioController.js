@@ -1,11 +1,16 @@
 import * as usuarioService from '../services/usuarioService.js';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { buscarUsuarioPorEmail } from "../services/usuarioService.js";
+import  {buscarUsuarioPorEmail}  from "../services/usuarioService.js";
 
 
 export const criar = async (req, res) => {
   const { nome, email, senha } = req.body;
+
+
+  function validarEmail(){
+    
+  }
 
   try {
     const usuario = await usuarioService.criarUsuario(nome, email, senha);
@@ -43,7 +48,6 @@ export const login = async (req, res) => {
       });
     }
 
-    console.log(process.env.JWT_SECRET);
     const token = jwt.sign(
       {
         id_usuario: usuario.id_usuario,
