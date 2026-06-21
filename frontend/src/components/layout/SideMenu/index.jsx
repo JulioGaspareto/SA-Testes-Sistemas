@@ -12,7 +12,7 @@ import {
     FaCalendarCheck
 } from 'react-icons/fa'
 
-import { useAuth } from '../../contexts/AuthContext'
+import { useAuth } from '../../../contexts/AuthContext'
 import { useState } from 'react'
 
 

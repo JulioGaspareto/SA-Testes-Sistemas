@@ -7,10 +7,10 @@ import { useNavigate } from 'react-router'
 import axios from 'axios'
 
 // Contexto
-import { useAuth } from '../../contexts/AuthContext'
+import { useAuth } from '../../../contexts/AuthContext'
 
 // Modal
-import Modal from '../Modal'
+import Modal from '../../ui/Modal'
 import RegisterUser from '../RegisterUser'
 
 const LoginForm = () => {

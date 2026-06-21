@@ -1,39 +1,79 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useEffect, useState } from "react"
+import api from "../api/api"
 
 const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null)
 
-    //se já tiver email no localStorage, mantém login
+    const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const savedEmail = localStorage.getItem("email")
 
-        if (savedEmail) {
-            setUser({ email: savedEmail })
+        const token = localStorage.getItem("token")
+        const savedUser = localStorage.getItem("user")
+
+        if (token && savedUser) {
+            setUser(JSON.parse(savedUser))
         }
+
+        setLoading(false)
 
     }, [])
 
-    const login = (email) => {
-        localStorage.setItem("email", email)
-        setUser({ email })
+    const login = async (email, senha) => {
+
+        try {
+
+            const response = await api.post("/auth/login", {
+                email,
+                senha
+            })
+
+            const { token, usuario } = response.data
+
+            localStorage.setItem("token", token)
+            localStorage.setItem("user", JSON.stringify(usuario))
+
+            setUser(usuario)
+
+            return {
+                success: true
+            }
+
+        } catch (error) {
+
+            return {
+                success: false,
+                message: error.response?.data?.message
+            }
+
+        }
+
     }
 
     const logout = () => {
-        localStorage.removeItem("email")
+
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+
         setUser(null)
+
     }
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                login,
+                logout,
+                loading
+            }}
+        >
             {children}
         </AuthContext.Provider>
     )
 
 }
-
-//hook customizado para consumir o contexto
 
 export const useAuth = () => useContext(AuthContext)
