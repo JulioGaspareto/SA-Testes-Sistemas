@@ -4,7 +4,6 @@ import { toast } from 'react-toastify'
 
 import { useNavigate } from 'react-router'
 
-import axios from 'axios'
 
 // Contexto
 import { useAuth } from '../../../contexts/AuthContext'
@@ -34,41 +33,25 @@ const LoginForm = () => {
     }, [user, navigate])
 
     //validação de login
-    const handleLogin = async (e) => {
-        e.preventDefault()
+  const handleLogin = async (e) => {
+    e.preventDefault()
 
-        try {
-            const response = await axios.get('http://localhost:3000/users', {
-                params: { email, password }
-            })
+    const result = await login(email, password)
 
-            console.log("response", response)
-            // console.log("params", params)
-
-            if (response.data.length === 0) {
-                toast.error('Usuário não encontrado. Verifique o email e senha', {
-                    autoClose: 3000,
-                    hideProgressBar: true
-                });
-                return;
-            }
-
-            login(email)
-
-            toast.success('Login realizado com sucesso!', {
-                autoClose: 2000
-            })
-
-            setTimeout(() => navigate('/dashboard', 2000))
-
-        } catch (error) {
-            console.error('Erro ao verificar usuário', error)
-            toast.error('Erro ao conectar com o servidor', {
-                autoClose: 3000
-            })
-        }
+    if (!result.success) {
+        toast.error(result.message || 'Email ou senha inválidos', {
+            autoClose: 3000,
+            hideProgressBar: true
+        })
+        return
     }
 
+    toast.success('Login realizado com sucesso!', {
+        autoClose: 2000
+    })
+
+    navigate('/dashboard')
+}
 
 
     return (

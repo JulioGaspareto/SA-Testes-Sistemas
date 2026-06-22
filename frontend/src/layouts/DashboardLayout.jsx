@@ -1,6 +1,6 @@
 import { Outlet } from "react-router"
 import { useAuth } from "../contexts/AuthContext"
-import SideMenu from "../components/SideMenu"
+import SideMenu from "../components/layout/SideMenu"
 
 
 const DashboardLayout = () => {
@@ -10,7 +10,7 @@ const DashboardLayout = () => {
         <div className="flex min-h-screen bg-gray-100">
             {/* barra lateral - menu */}
 
-            <SideMenu />
+          
 
             {/* Conteúdo principal */}
             <main className="flex-1 flex flex-col">

@@ -1,22 +1,16 @@
-import React from 'react'
-import PatientsCounter from '../../components/counters/PatientsCounter'
-import ConsultsCounter from '../../components/counters/ConsultsCounter'
-import ExamsCounter from '../../components/counters/ExamsCounter'
-import PatientsList from '../../components/PatientsList'
+import { useAuth } from '../../contexts/AuthContext'
 
 const Dashboard = () => {
+    const { user } = useAuth()
+
     return (
         <div>
-            <h1 className='text-xl font-bold text-cyan-800 mb-6'>Dashboard</h1>
-
-            <div className='grid grid-cols-1 sm:grid-cols-3 gap-2'>
-                <PatientsCounter />
-                <ConsultsCounter />
-                <ExamsCounter />
-            </div>
-
-            {/* Lista de pacientes */}
-            <PatientsList />
+            <h1 className='text-xl font-bold mb-4'>
+                Bem vindo ao Good Coffee ☕
+            </h1>
+            <p className='text-gray-600'>
+                Olá, {user?.nome}! O que vamos preparar hoje?
+            </p>
         </div>
     )
 }

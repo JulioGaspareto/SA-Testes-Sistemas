@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import api from "../api/api"
+import api from "../services/api"
 
 const AuthContext = createContext()
 
@@ -10,8 +10,8 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
 
-        const token = localStorage.getItem("token")
-        const savedUser = localStorage.getItem("user")
+        const token = localStorage.getItem("@goodcoffee:token")
+        const savedUser = localStorage.getItem("@goodcoffee:user")
 
         if (token && savedUser) {
             setUser(JSON.parse(savedUser))
@@ -25,15 +25,15 @@ export const AuthProvider = ({ children }) => {
 
         try {
 
-            const response = await api.post("/auth/login", {
+            const response = await api.post("/usuarios/login", {
                 email,
                 senha
             })
 
             const { token, usuario } = response.data
 
-            localStorage.setItem("token", token)
-            localStorage.setItem("user", JSON.stringify(usuario))
+            localStorage.setItem("@goodcoffee:token", token)
+            localStorage.setItem("@goodcoffee:user", JSON.stringify(usuario))
 
             setUser(usuario)
 
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
             return {
                 success: false,
-                message: error.response?.data?.message
+                message: error.response?.data?.erro
             }
 
         }
@@ -54,8 +54,8 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
 
-        localStorage.removeItem("token")
-        localStorage.removeItem("user")
+        localStorage.removeItem("@goodcoffee:token")
+        localStorage.removeItem("@goodcoffee:user")
 
         setUser(null)
 
