@@ -76,7 +76,7 @@ const LoginForm = () => {
                     <input
                         type='password'
                         id='password'
-                        minLength={8}
+                        // minLength={8}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required

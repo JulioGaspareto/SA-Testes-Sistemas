@@ -5,20 +5,15 @@ import  {buscarUsuarioPorEmail}  from "../services/usuarioService.js";
 
 
 export const criar = async (req, res) => {
-  const { nome, email, senha } = req.body;
+    const { nome, email, senha, role } = req.body
 
-
-  function validarEmail(){
-    
-  }
-
-  try {
-    const usuario = await usuarioService.criarUsuario(nome, email, senha);
-    res.json(usuario);
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-};
+    try {
+        const usuario = await usuarioService.criarUsuario(nome, email, senha, role)
+        res.json(usuario)
+    } catch (err) {
+        res.status(500).json({ erro: err.message })
+    }
+}
 
 export const listar = async (req, res) => {
   const usuarios = await usuarioService.listarUsuarios();
@@ -26,53 +21,49 @@ export const listar = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  try {
-    const { email, senha } = req.body;
+    try {
+        const { email, senha } = req.body
 
-    const usuario = await buscarUsuarioPorEmail(email);
+        const usuario = await buscarUsuarioPorEmail(email)
 
-    if (!usuario) {
-      return res.status(401).json({
-        erro: "Email ou senha inválidos"
-      });
+        if (!usuario) {
+            return res.status(401).json({
+                erro: "Email ou senha inválidos"
+            })
+        }
+
+        const senhaValida = await bcrypt.compare(senha, usuario.senha)
+
+        if (!senhaValida) {
+            return res.status(401).json({
+                erro: "Email ou senha inválidos"
+            })
+        }
+
+        const token = jwt.sign(
+            {
+                id_usuario: usuario.id_usuario,
+                email: usuario.email,
+                role: usuario.role
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" }
+        )
+
+        res.status(200).json({
+            token,
+            usuario: {
+                id_usuario: usuario.id_usuario,
+                nome: usuario.nome,
+                email: usuario.email,
+                role: usuario.role
+            }
+        })
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            erro: "Erro ao realizar login"
+        })
     }
-
-    const senhaValida = await bcrypt.compare(
-      senha,
-      usuario.senha
-    );
-
-    if (!senhaValida) {
-      return res.status(401).json({
-        erro: "Email ou senha inválidos"
-      });
-    }
-
-    const token = jwt.sign(
-      {
-        id_usuario: usuario.id_usuario,
-        email: usuario.email
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1d"
-      }
-    );
-
-    res.status(200).json({
-      token,
-      usuario: {
-        id_usuario: usuario.id_usuario,
-        nome: usuario.nome,
-        email: usuario.email
-      }
-    });
-
-  } catch (error) {
-    console.error(error);
-
-    res.status(500).json({
-      erro: "Erro ao realizar login"
-    });
-  }
-};
+}

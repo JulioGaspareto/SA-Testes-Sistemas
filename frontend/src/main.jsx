@@ -16,7 +16,10 @@ import Dashboard from './pages/Dashboard'
 import { AuthProvider } from './contexts/AuthContext'
 import PrivateRoute from './components/PrivateRoute'
 import DashboardLayout from './layouts/DashboardLayout'
-
+import Cardapio from './pages/Cardapio'
+import Pedidos from './pages/Pedidos'
+import Atendente from './pages/Atendente'
+import Perfil from './pages/Perfil'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +33,10 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: "/dashboard", element: <Dashboard /> },
+      { path: "/cardapio", element: <Cardapio /> },
+      { path: "/pedidos", element: <Pedidos /> },
+      { path: "/atendente", element: <Atendente /> },
+      { path: "/perfil", element: <Perfil /> },
     ]
   }
 ])

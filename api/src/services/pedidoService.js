@@ -67,3 +67,59 @@ export const atualizarStatus = async (id_pedido, status) => {
 
   return res.rows[0];
 };
+export const removerItem = async (id_pedido_item) => {
+    const res = await pool.query(
+        `DELETE FROM pedidos_itens
+         WHERE id_pedido_item = $1
+         RETURNING *`,
+        [id_pedido_item]
+    )
+
+    return res.rows[0]
+}
+
+export const listarPedidosPendentes = async () => {
+    const pedidosRes = await pool.query(
+        `SELECT 
+            p.id_pedido,
+            p.status,
+            p.data_registro,
+            u.nome AS cliente_nome,
+            u.email AS cliente_email
+         FROM pedidos p
+         JOIN usuarios u ON u.id_usuario = p.usuario_id
+         WHERE p.status = 'PENDENTE'
+         ORDER BY p.data_registro ASC`
+    )
+
+    const pedidos = pedidosRes.rows
+
+    // Para cada pedido, busca os itens
+    const pedidosComItens = await Promise.all(
+        pedidos.map(async (pedido) => {
+            const itensRes = await pool.query(
+                `SELECT 
+                    pi.quantidade,
+                    pr.nome,
+                    pr.valor,
+                    (pi.quantidade * pr.valor) AS subtotal
+                 FROM pedidos_itens pi
+                 JOIN produtos pr ON pr.id_produto = pi.produto_id
+                 WHERE pi.pedido_id = $1`,
+                [pedido.id_pedido]
+            )
+
+            const total = itensRes.rows.reduce(
+                (acc, item) => acc + Number(item.subtotal), 0
+            )
+
+            return {
+                ...pedido,
+                itens: itensRes.rows,
+                total
+            }
+        })
+    )
+
+    return pedidosComItens
+}

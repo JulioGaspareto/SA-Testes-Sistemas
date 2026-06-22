@@ -49,3 +49,29 @@ export const atualizarStatus = async (req, res) => {
     res.status(500).json({ erro: err.message });
   }
 };
+
+export const listarPendentes = async (req, res) => {
+    try {
+        const pedidos = await pedidoService.listarPedidosPendentes()
+        res.json(pedidos)
+    } catch (err) {
+        res.status(500).json({ erro: err.message })
+    }
+}
+
+export const removerItem = async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const item = await pedidoService.removerItem(id)
+
+        if (!item) {
+            return res.status(404).json({ erro: 'Item não encontrado' })
+        }
+
+        res.json({ mensagem: 'Item removido com sucesso' })
+    } catch (err) {
+        res.status(500).json({ erro: err.message })
+    }
+}
+

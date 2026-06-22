@@ -105,7 +105,7 @@ const RegisterUser = () => {
                         value={password}
                         onChange={handlePasswordChange}
                         required
-                        minLength={8}
+                        // minLength={8}
                         className='w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     />
                 </fieldset>
@@ -118,7 +118,7 @@ const RegisterUser = () => {
                         value={confirmPassword}
                         onChange={handleConfirmPasswordChange}
                         required
-                        minLength={8}
+                        // minLength={8}
                         className='w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     />
 

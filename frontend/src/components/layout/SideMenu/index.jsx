@@ -1,4 +1,4 @@
-import { Link, useNavigate, NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
 import {
     MdDashboard,
     MdExitToApp,
@@ -6,146 +6,114 @@ import {
     MdClose
 } from 'react-icons/md'
 
-import {
-    FaUserPlus,
-    FaListAlt,
-    FaCalendarCheck
-} from 'react-icons/fa'
-
 import { useAuth } from '../../../contexts/AuthContext'
 import { useState } from 'react'
-
-
+import { FaCoffee, FaClipboardList, FaUserTie, FaUserCircle } from 'react-icons/fa'
 
 const SideMenu = () => {
     const navigate = useNavigate()
-
-    const { logout } = useAuth()
-
-    // controle do menu sanfonado
+    const { logout, user } = useAuth()
     const [isCollapsed, setIsCollapsed] = useState(false)
 
-    // função do logout
     const handleLogout = () => {
         logout()
         navigate('/')
     }
 
-    //função toggle menu
-
     const toggleMenu = () => {
         setIsCollapsed(!isCollapsed)
     }
 
-
-
     return (
         <aside
-            className={`h-screen bg-cyan-800 text-white flex flex-col justify-between transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'
-                }`}
+            className={`h-screen bg-amber-900 text-white flex flex-col justify-between transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'}`}
         >
-            {/* topo - botão toggle */}
-            <div className='p-4 flex items-center justify-between border-b border-cyan-700'>
-                {
-                    !isCollapsed && (
-                        <h1 className='text-lg font-bold'>Clínica +</h1>
-                    )
-                }
+            <div className='p-4 flex items-center justify-between border-b border-amber-700'>
+                {!isCollapsed && (
+                    <h1 className='text-lg font-bold'>Good Coffee ☕</h1>
+                )}
                 <button
                     onClick={toggleMenu}
-                    className='text-white hover:text-cyan-300 focus:outline-none'
+                    className='text-white hover:text-amber-300 focus:outline-none'
                 >
                     {isCollapsed ? <MdMenu size={24} /> : <MdClose size={24} />}
                 </button>
             </div>
 
-            {/* Menu */}
             <nav className='flex-1 p-4 space-y-4 overflow-y-auto'>
                 <ul className='space-y-3'>
                     <li>
                         <NavLink
                             to="/dashboard"
                             className={({ isActive }) =>
-                                `flex gap-2 hover:text-cyan-300 ${isActive ? "text-cyan-300" : "text-white"
-                                }`
+                                `flex gap-2 hover:text-amber-300 ${isActive ? "text-amber-300" : "text-white"}`
                             }
                         >
                             <MdDashboard size={20} />
                             {!isCollapsed && <span>Início</span>}
                         </NavLink>
-
-
                     </li>
                     <li>
                         <NavLink
-                            to="/prontuarios"
+                            to="/cardapio"
                             className={({ isActive }) =>
-                                `flex gap-2 hover:text-cyan-300 ${isActive ? "text-cyan-300" : "text-white"
-                                }`
+                                `flex gap-2 hover:text-amber-300 ${isActive ? "text-amber-300" : "text-white"}`
                             }
                         >
-                            <FaCalendarCheck size={20} />
-                            {!isCollapsed && <span>Prontuários</span>}
+                            <FaCoffee size={20} />
+                            {!isCollapsed && <span>Cardápio</span>}
                         </NavLink>
-
-
                     </li>
                     <li>
                         <NavLink
-                            to="/pacientes"
+                            to="/pedidos"
                             className={({ isActive }) =>
-                                `flex gap-2 hover:text-cyan-300 ${isActive ? "text-cyan-300" : "text-white"
-                                }`
+                                `flex gap-2 hover:text-amber-300 ${isActive ? "text-amber-300" : "text-white"}`
                             }
                         >
-                            <FaUserPlus size={20} />
-                            {!isCollapsed && <span>Registrar Paciente</span>}
+                            <FaClipboardList size={20} />
+                            {!isCollapsed && <span>Meus Pedidos</span>}
                         </NavLink>
-
                     </li>
+
+                    {user?.role === 'funcionario' && (
+                        <li>
+                            <NavLink
+                                to="/atendente"
+                                className={({ isActive }) =>
+                                    `flex gap-2 hover:text-amber-300 ${isActive ? "text-amber-300" : "text-white"}`
+                                }
+                            >
+                                <FaUserTie size={20} />
+                                {!isCollapsed && <span>Atendente</span>}
+                            </NavLink>
+                        </li>
+
+                    )}
                     <li>
                         <NavLink
-                            to="/consultas"
+                            to="/perfil"
                             className={({ isActive }) =>
-                                `flex gap-2 hover:text-cyan-300 ${isActive ? "text-cyan-300" : "text-white"
-                                }`
+                                `flex gap-2 hover:text-amber-300 ${isActive ? "text-amber-300" : "text-white"}`
                             }
                         >
-                            <MdMenu size={20} />
-                            {!isCollapsed && <span>Consultas</span>}
+                            <FaUserCircle size={20} />
+                            {!isCollapsed && <span>Meu Perfil</span>}
                         </NavLink>
-
-
-                    </li>
-                    <li>
-                        <NavLink
-                            to="/exames"
-                            className={({ isActive }) =>
-                                `flex gap-2 hover:text-cyan-300 ${isActive ? "text-cyan-300" : "text-white"
-                                }`
-                            }
-                        >
-                            <FaListAlt size={20} />
-                            {!isCollapsed && <span>Exames</span>}
-                        </NavLink>
-
                     </li>
                 </ul>
             </nav>
 
-            {/* botao sair */}
-            <div className='p-4 border-t border-cyan-700'>
+            <div className='p-4 border-t border-amber-700'>
                 <button
                     onClick={handleLogout}
                     className='flex items-center gap-3 text-red-300 hover:text-red-500 w-full cursor-pointer'
                 >
                     <MdExitToApp size={20} />
                     {!isCollapsed && <span>Sair</span>}
-
                 </button>
             </div>
-
-        </aside >
+        </aside>
     )
 }
 
