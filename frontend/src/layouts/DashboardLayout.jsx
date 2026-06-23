@@ -14,7 +14,7 @@ const DashboardLayout = () => {
            
             <main className="flex-1 flex flex-col">
                 <header className="flex justify-between items-center bg-white p-4 shadow">
-                    <h1 className="text-xl font-bold text-amber-900">Good Coffee ☕</h1>
+                    <h1 className="text-xl font-bold text-amber-900"></h1>
                
                 </header>
 

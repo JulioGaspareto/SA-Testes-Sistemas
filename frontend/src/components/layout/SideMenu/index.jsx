@@ -30,7 +30,7 @@ const SideMenu = () => {
         >
             <div className='p-4 flex items-center justify-between border-b border-amber-700'>
                 {!isCollapsed && (
-                    <h1 className='text-lg font-bold'>Good Coffee ☕</h1>
+                    <h1 className='text-lg font-bold'>Good Coffee</h1>
                 )}
                 <button
                     onClick={toggleMenu}

@@ -31,7 +31,7 @@ const Pedidos = () => {
 
     const iniciarPedido = async () => {
         try {
-            const response = await api.post('/')
+            const response = await api.post('/pedidos')
             setPedidoAtivo(response.data)
             setResumo({ pedido: response.data, itens: [], total: 0 })
             toast.success('Pedido aberto! Agora adicione os itens.', { autoClose: 2000 })

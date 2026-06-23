@@ -1,29 +1,22 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-
 import api from '../../../services/api'
 
 const RegisterUser = () => {
 
-    // estados de controle dos campos
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')  
 
-    //funções que alteram o valor dos estados
+    const handleNomeChange = (e) => setNome(e.target.value)
     const handleEmailChange = (e) => setEmail(e.target.value)
     const handlePasswordChange = (e) => setPassword(e.target.value)
     const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value)
-    const handleNomeChange = (e) => setNome(e.target.value)
-    // estados (match password e validação do botão de salvar)
+
     const [isPasswordMatch, setIsPasswordMatch] = useState(true)
-
+    const [isPasswordLong, setIsPasswordLong] = useState(true) 
     const [isSaving, setIsSaving] = useState(false)
-
-    // validação do match 
-
-    const isPasswordValid = () => password.length >= 8 && password === confirmPassword
 
     const resetForm = () => {
         setNome('')
@@ -31,12 +24,21 @@ const RegisterUser = () => {
         setPassword('')
         setConfirmPassword('')
         setIsPasswordMatch(true)
+        setIsPasswordLong(true)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (!isPasswordValid()) {
+        setIsPasswordMatch(true)
+        setIsPasswordLong(true)
+
+        if (password.length < 8) {
+            setIsPasswordLong(false)
+            return
+        }
+
+        if (password !== confirmPassword) {
             setIsPasswordMatch(false)
             return
         }
@@ -64,10 +66,7 @@ const RegisterUser = () => {
             })
             setIsSaving(false)
         }
-
-
     }
-
 
     return (
         <div className='w-full max-w-md p-6 bg-white rounded-xl'>
@@ -85,11 +84,12 @@ const RegisterUser = () => {
                         className='w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     />
                 </fieldset>
+
                 <fieldset>
-                    <label htmlFor='email' className='block text-sm font-medium mb-1'>Email:</label>
+                    <label htmlFor='register-email' className='block text-sm font-medium mb-1'>Email:</label>
                     <input
                         type='email'
-                        id='email'
+                        id='register-email'
                         value={email}
                         onChange={handleEmailChange}
                         required
@@ -98,30 +98,30 @@ const RegisterUser = () => {
                 </fieldset>
 
                 <fieldset>
-                    <label htmlFor='password' className='block text-sm font-medium mb-1'>Senha:</label>
+                    <label htmlFor='register-password' className='block text-sm font-medium mb-1'>Senha:</label>
                     <input
                         type='password'
-                        id='password'
+                        id='register-password'
                         value={password}
                         onChange={handlePasswordChange}
                         required
-                        // minLength={8}
                         className='w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     />
+                    {!isPasswordLong && (
+                        <p className='text-red-500 text-sm mt-1'>A senha deve ter no mínimo 8 caracteres</p>
+                    )}
                 </fieldset>
 
                 <fieldset>
-                    <label htmlFor='confirmPassword' className='block text-sm font-medium mb-1'>Confirmar Senha:</label>
+                    <label htmlFor='register-confirmPassword' className='block text-sm font-medium mb-1'>Confirmar Senha:</label>
                     <input
                         type='password'
-                        id='confirmPassword'
+                        id='register-confirmPassword'
                         value={confirmPassword}
                         onChange={handleConfirmPasswordChange}
                         required
-                        // minLength={8}
                         className='w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     />
-
                     {!isPasswordMatch && (
                         <p className='text-red-500 text-sm mt-1'>As senhas não correspondem</p>
                     )}
@@ -131,15 +131,14 @@ const RegisterUser = () => {
                     <button
                         type='submit'
                         disabled={isSaving}
-                        className={`w-full p-2 rounded-lg text-white mt-4 ${isSaving ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
+                        className={`w-full p-2 rounded-lg text-white mt-4 ${isSaving
+                            ? 'bg-gray-400 cursor-not-allowed'
+                            : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
                             } transition-colors`}
                     >
-                        {isSaving ? "Salvando ..." : "Criar Usuário"}
-
+                        {isSaving ? 'Salvando ...' : 'Criar Usuário'}
                     </button>
                 </div>
-
-
 
             </form>
         </div>

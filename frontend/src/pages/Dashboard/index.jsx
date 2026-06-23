@@ -24,10 +24,10 @@ const Dashboard = () => {
 
             <div>
                 <h1 className='text-xl font-bold text-amber-900'>
-                    Olá, {user?.nome}! ☕
+                    Olá, {user?.nome}! 
                 </h1>
                 <p className='text-gray-500 text-sm'>
-                    Bem vindo ao Good Coffee — o que vamos preparar hoje?
+                    Bem vindo ao Good Coffee 
                 </p>
             </div>
 
@@ -69,7 +69,7 @@ const Dashboard = () => {
                 </div>
                 <div className='bg-white rounded-xl shadow p-4 border-l-4 border-amber-500'>
                     <p className='text-sm text-gray-500'>Good Coffee</p>
-                    <p className='text-lg font-bold text-amber-500'>Qualidade ☕</p>
+                    <p className='text-lg font-bold text-amber-500'>Qualidade </p>
                     <p className='text-xs text-gray-400 mt-1'>Feito com carinho pra você</p>
                 </div>
             </div>
